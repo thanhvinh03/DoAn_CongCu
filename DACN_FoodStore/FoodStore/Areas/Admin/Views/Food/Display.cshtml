@@ -1,0 +1,141 @@
+﻿@model FoodStore.Models.Food
+
+@{
+    ViewData["Title"] = "Display";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var foodIngredients = ViewBag.FoodIngredients as List<FoodStore.Models.FoodIngredient>;
+    var allIngredients = ViewBag.AllIngredients as List<FoodStore.Models.Ingredients>;
+}
+
+<h1>Chi tiết món ăn @Model.Name</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Loại thực phẩm</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.FoodCategorys.Name)</dd>
+
+        <dt class="col-sm-2">Tên</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt class="col-sm-2">Hình ảnh</dt>
+        <dd class="col-sm-10">
+            <img src="@Model.Image" alt="" style="max-width: 100px; max-height: 100px;">
+        </dd>
+
+        <dt class="col-sm-2">Đơn vị tính</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Type)</dd>
+
+        <dt class="col-sm-2">Giá</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Price)</dd>
+
+        <dt class="col-sm-2">Tình trạng</dt>
+        <dd class="col-sm-10">
+            @(Model.Status == 1 ? "Hết" : "Còn")
+        </dd>
+    </dl>
+</div>
+
+<h3>Công thức món ăn</h3>
+<form asp-action="SaveRecipe" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <table class="table" id="ingredientsTable">
+        <thead>
+            <tr>
+                <th>Tên nguyên liệu</th>
+                <th>Đơn vị</th>
+                <th>Khối lượng</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (foodIngredients != null && foodIngredients.Count > 0)
+            {
+                for (int i = 0; i < foodIngredients.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <select name="ingredients[@i].IngredientId" class="form-control">
+                                @foreach (var ingredient in allIngredients)
+                                {
+                                    @if (ingredient.Id == foodIngredients[i].IngredientId)
+                                    {
+                                        <option value="@ingredient.Id" selected>@ingredient.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@ingredient.Id">@ingredient.Name</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" name="ingredients[@i].Unit" class="form-control" readonly value="@foodIngredients[i].Ingredients.Unit" />
+                        </td>
+                        <td>
+                            <input type="number" name="ingredients[@i].QuantityRequired" class="form-control" min="0" value="@foodIngredients[i].QuantityRequired" />
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" onclick="removeIngredientRow(this)">Xóa</button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">Không có nguyên liệu nào.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-success" onclick="addIngredientRow()">Thêm nguyên liệu</button>
+    <button type="submit" class="btn btn-primary">Lưu công thức</button>
+    <button type="button" class="btn btn-secondary" onclick="window.history.back()">Trở về</button>
+</form>
+
+<script>
+    let ingredientIndex = @((foodIngredients != null && foodIngredients.Count > 0) ? foodIngredients.Count : 0);
+
+    function addIngredientRow() {
+        const tableBody = document.querySelector("#ingredientsTable tbody");
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `
+            <td>
+                <select name="ingredients[${ingredientIndex}].IngredientId" class="form-control">
+                    @foreach (var ingredient in allIngredients)
+                    {
+                        <option value="@ingredient.Id">@ingredient.Name</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <input type="text" name="ingredients[${ingredientIndex}].Unit" class="form-control" readonly />
+            </td>
+            <td>
+                <input type="number" name="ingredients[${ingredientIndex}].QuantityRequired" class="form-control" min="0" />
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger" onclick="removeIngredientRow(this)">Xóa</button>
+            </td>
+        `;
+        tableBody.appendChild(newRow);
+        ingredientIndex++;
+    }
+
+    function removeIngredientRow(button) {
+        const row = button.closest("tr");
+        row.remove();
+
+        // Re-index all ingredient rows to ensure consecutive indexing
+        const rows = document.querySelectorAll("#ingredientsTable tbody tr");
+        rows.forEach((row, index) => {
+            row.querySelector("select[name^='ingredients']").name = `ingredients[${index}].IngredientId`;
+            row.querySelector("input[name^='ingredients'][name$='.Unit']").name = `ingredients[${index}].Unit`;
+            row.querySelector("input[name^='ingredients'][name$='.QuantityRequired']").name = `ingredients[${index}].QuantityRequired`;
+        });
+
+        ingredientIndex = rows.length; // Update the global index tracker
+    }
+
+</script>

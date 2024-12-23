@@ -1,0 +1,49 @@
+﻿@model FoodStore.Models.Food
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Thêm món ăn</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Tên</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Image">Hình ảnh</label>
+                <input type="file" asp-for="Image" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label">Đơn vị tính</label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Giá</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FoodCategoryId" class="control-label">Loại đồ ăn</label>
+                <select asp-for="FoodCategoryId" asp-items="ViewBag.FoodCategories"  class="form-control" asp-items="ViewBag.FoodCategoryId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Thêm" class="btn btn-primary" style="margin-top: 10px;" /> |
+                <a asp-action="Index" class="btn btn-info" style="margin-top: 10px;">Trở về</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

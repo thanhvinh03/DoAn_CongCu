@@ -1,0 +1,9 @@
+.Vue-Toastification__toast {
+	width: 100px !important; /* Chiều rộng mong muốn */
+	padding: 8px 16px; /* Chiều cao phụ thuộc vào padding */
+}
+
+/* Điều chỉnh kích thước cho các văn bản và nút */
+.Vue-Toastification__toast-body {
+	font-size: 14px; /* Thay đổi kích thước font để phù hợp */
+}

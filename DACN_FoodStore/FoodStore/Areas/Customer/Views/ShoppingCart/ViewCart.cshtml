@@ -1,0 +1,119 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model FoodStore.Models.ShoppingCart
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+        <h5 class="mb-2">Giỏ hàng của bạn</h5>
+        <div class="d-flex gap-2">
+            <form action="/customer/shoppingcart/submit" method="post">
+                <input type="hidden" name="idTable" value="@ViewBag.idTable" />
+                <button class="btn btn-primary btn-sm mb-sm-0" type="submit">Xác nhận</button>
+            </form>
+            <a class="btn btn-outline-warning btn-sm" href="/customer/order/@ViewBag.idTable">Trở về</a>
+        </div>
+    </div>
+
+    <div class="order-info">
+        @if (Model.Items.Any())
+        {
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tên món ăn</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>-</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Price</td>
+                                <td><input type="number" class="input-quantity-food" data-food-id="@item.FoodId" value="@item.Quantity" min="1" max="999" /></td>
+                                <td>
+                                    <form action="/customer/shoppingcart/deletefromcart" method="post">
+                                        <input type="hidden" name="foodId" value="@item.FoodId" />
+                                    
+                                        <input type="hidden" name="idTable" value="@ViewBag.idTable" />
+                                        <button class="btn btn-danger" type="submit">Xóa</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <h4 class="text-center text-bg-info fs-5">Giỏ hàng đang trống</h4>
+        }
+    </div>
+</div>
+
+<style>
+    * {
+        font-size: 14px;
+    }
+
+    input {
+        height: auto;
+    }
+
+    button {
+        min-width: 60px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    h5 {
+        font-size: 16px;
+    }
+
+    .btn {
+        font-size: 14px;
+    }
+
+    .table th, .table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.input-quantity-food').change(function () {
+            console.log("Change");
+            var foodId = $(this).data('food-id');
+            var quantity = $(this).val();
+
+            $.ajax({
+                url: '/customer/order/UpdateQuantity',
+                type: 'POST',
+                data: {
+                    foodId: foodId,
+                    quantity: quantity,
+                },
+                success: function (response) {
+                    console.log('Cập nhật thành công');
+                },
+                error: function (error) {
+                    console.error('Lỗi khi cập nhật:', error);
+                }
+            });
+        });
+    });
+</script>

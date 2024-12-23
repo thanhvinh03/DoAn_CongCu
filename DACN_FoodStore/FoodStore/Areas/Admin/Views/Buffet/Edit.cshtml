@@ -1,0 +1,84 @@
+﻿@model FoodStore.Models.Buffet
+@{
+    var selectedFoodIds = ViewBag.SelectedFoodIds as List<int> ?? new List<int>();
+}
+
+<h1 class="text-center mb-4">Chỉnh Sửa Buffet</h1>
+
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Thông Tin Buffet</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Name">Tên Buffet</label>
+                        <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Nhập tên Buffet" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Price">Giá</label>
+                        <input type="number" class="form-control" id="Price" asp-for="Price" placeholder="Nhập giá Buffet" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Description">Mô Tả</label>
+                <textarea class="form-control" id="Description" asp-for="Description" placeholder="Nhập mô tả Buffet"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="Status">Trạng thái</label>
+                <select class="form-control" id="Status" asp-for="Status">
+                    <option value="0">Không hoạt động</option>
+                    <option value="1">Hoạt động</option>
+                </select>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header bg-secondary text-white">
+                    <h6 class="mb-0">Hình Ảnh</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="ImageFile">Tải lên hình ảnh</label>
+
+                        <!-- Hiển thị ảnh hiện tại nếu có -->
+                        @if (!string.IsNullOrEmpty(Model.Image))
+                        {
+                            <div class="mb-3">
+                                <img src="@Model.Image" alt="Ảnh Buffet" style="max-width: 200px; height: auto; border-radius: 8px;" />
+                                <div>
+                                    <small>Ảnh hiện tại. Bạn có thể chọn ảnh mới nếu muốn.</small>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Input để tải ảnh lên nếu muốn thay đổi -->
+                        <input type="file" class="form-control-file" id="ImageFile" name="ImageFile" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <label>Chọn Món Ăn</label>
+                <div class="border p-3 rounded">
+                    @foreach (var food in ViewBag.ListFood)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="food_@food.Id" name="selectedFoods" value="@food.Id"
+                                   @(selectedFoodIds.Contains(food.Id) ? "checked" : "") />
+                            <label class="form-check-label" for="food_@food.Id">@food.Name</label>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-4">Chỉnh Sửa Buffet</button>
+        </form>
+    </div>
+</div>

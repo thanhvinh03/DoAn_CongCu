@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FoodStore</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="index.html"></a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item">
+                <a class="nav-link text-light" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>
+            <li class="nav-item dropdown">
+
+            </li>
+            <partial name="_LoginPartial" />
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav sb-sidenav-custom accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Quản Lý</div>
+                        <a class="nav-link" asp-controller="Table" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fas fa-table"></i></div>
+                            Bàn
+                        </a>
+                        <a class="nav-link" asp-controller="FoodCategory" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-utensils"></i></div>
+                            Loại Thực Phẩm
+                        </a>
+                        <a class="nav-link" asp-controller="Food" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-utensils"></i>
+                                </div>
+                            Món Ăn
+                        </a>
+                        <a class="nav-link" asp-controller="Payment" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fa-solid fa-money-check-dollar"></i>
+                                </div>
+                            Hình thức thanh toán
+                        </a>
+                        <a class="nav-link" asp-controller="Order" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                            </div>
+                            Đơn hàng đang đặt
+                        </a>
+                        <a class="nav-link" asp-controller="Order" asp-action="OrderAccepted">
+                            <div class="sb-nav-link-icon">
+                                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                            </div>
+                            Đơn hàng đã đặt
+                        </a>
+                        <a class="nav-link" asp-controller="Invoice" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-file-invoice"></i>
+                                </div>
+                            Hóa đơn chưa thanh toán
+                        </a>
+                        <a class="nav-link" asp-controller="Invoice" asp-action="BillPaid">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-file-invoice"></i>
+                                </div>
+                            Hóa đơn đã thanh toán
+                        </a>
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fa fa-money"> </i>
+                                </div>
+                            Doanh thu
+                        </a>
+                        <a class="nav-link" asp-controller="Ingredient" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-warehouse"></i>
+                            </div>
+                            Quản Lý Kho
+                        </a>
+
+                    </div>
+                </div>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+<style>
+    .sb-sidenav-custom {
+        width: 250px;
+    }
+
+    #layoutSidenav_content {
+        
+        padding-left: 250px !important;
+    }
+</style>

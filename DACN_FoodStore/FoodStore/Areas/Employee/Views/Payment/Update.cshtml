@@ -1,0 +1,33 @@
+﻿@model FoodStore.Models.Payment
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Employee/Views/Shared/_LayoutEmployee.cshtml";
+}
+
+<h1>Chỉnh sửa hình thức thanh toán @Model.Name</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Tên</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" style="margin-top: 10px;" /> |
+                <a asp-action="Index" class="btn btn-info" style="margin-top: 10px;">Trở về</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

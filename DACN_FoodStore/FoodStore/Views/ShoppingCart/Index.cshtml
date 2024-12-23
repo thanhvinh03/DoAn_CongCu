@@ -1,0 +1,69 @@
+﻿@model FoodStore.Models.ShoppingCart
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-bt1bsxzZRn7W5EiDNKd7OT27BZlb27qRU0QpzCPK9UZ/vddz3q8NvA6OpMpeNpbd" crossorigin="anonymous" />
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <h2>Your Cart</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>
+                                        <form asp-controller="ShoppingCart" asp-action="UpdateQuantity" method="post">
+                                            <input type="hidden" name="productId" value="@item.FoodId" />
+                                            <button type="submit" name="changeQuantity" value="-1" class="btn btn-sm btn-outline-secondary">-</button>
+                                            <span id="quantity-@item.FoodId">@item.Quantity</span>
+                                            <button type="submit" name="changeQuantity" value="1" class="btn btn-sm btn-outline-secondary">+</button>
+                                        </form>
+                                    </td>
+
+                                    <td>@item.Price</td>
+                                    <td>@(item.Price * item.Quantity)</td>
+                                    <td>
+                                        <a class="btn btn-danger btn-sm" asp-action="RemoveFromCart" asp-route-productId="@item.FoodId">Remove</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td>Sub Total:</td>
+                                <td>@Model.Items.Sum(item => item.Price * item.Quantity)</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <a class="btn btn-success" asp-controller="Home" asp-action="Index">Back to List</a> |
+                <a class="btn btn-success" asp-controller="ShoppingCart" asp-action="Checkout">Thanh Toán</a>
+            </div>
+        </div>
+    </div>
+    <div>
+        <form asp-controller="ShoppingCart" asp-action="ClearCart" method="post">
+            <button type="submit" class="btn btn-danger">Clear Cart</button>
+        </form>
+    </div>
+</body>
+</html>

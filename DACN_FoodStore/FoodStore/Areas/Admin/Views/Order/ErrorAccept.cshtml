@@ -1,0 +1,18 @@
+﻿@model FoodStore.Models.Order
+
+@{
+    ViewData["Title"] = "ErrorAccept";
+}
+
+<div style="display: flex; justify-content: center; align-items: flex-start; height: 80vh; padding-top: 50px; text-align: center;">
+    <div style="max-width: 600px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); background-color: #f9f9f9;">
+        <h2 style="color: #ff4d4d; font-size: 28px; font-weight: bold; margin-bottom: 20px;">Thiếu Nguyên Liệu</h2>
+        <p style="font-size: 18px; color: #333; margin-bottom: 15px;">Các nguyên liệu sau không đủ để thực hiện đơn hàng:</p>
+        <div style="color: #d9534f; font-size: 16px; margin-top: 10px; line-height: 1.8; text-align: left;">
+            @Html.Raw(ViewBag.ErrorMessage)
+        </div>
+        <a href="@Url.Action("Index", "Order")" style="display: inline-block; margin-top: 30px; padding: 12px 24px; font-size: 16px; color: #fff; background-color: #007bff; border-radius: 5px; text-decoration: none; font-weight: bold;">
+            Quay lại
+        </a>
+    </div>
+</div>

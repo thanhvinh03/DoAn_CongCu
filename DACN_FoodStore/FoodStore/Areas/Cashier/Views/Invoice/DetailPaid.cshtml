@@ -1,0 +1,105 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model FoodStore.Models.Order
+<div class="container mt-4">
+
+    <h3 class="text-center">Thông tin chi tiết hóa đơn</h3>
+    <div class="order-detail mt-2">
+        <div class="detail-info">
+            <div class="row">
+                <div class="col-4 fw-bold">
+                    Mã đơn đặt hàng: @Model.Id
+                </div>
+                <div class="col-4 fw-bold">
+                    Số bàn: @Model.TableId
+                </div>
+                <div class="col-4 fw-bold">
+                    Ngày tạo: @Model.Created.ToString("HH:mm:ss dd-MM-yyyy")
+                </div>
+                <div class="col-4 fw-bold d-flex align-items-center gap-2">
+                    Trạng thái:
+                        <span class="badge bg-success">Đã thanh toán</span>
+                </div>
+                <div class="col-4 fw-bold d-flex align-items-center gap-2">
+                    Hình thức thanh toán: @if (ViewBag.Invoice.PaymentId == 1)
+                    {
+                        <span class="badge bg-success">Tiền mặt</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning">MoMo</span>
+                    }
+                </div>
+            </div>
+
+        </div>
+        <div class="detail-item mt-4">
+            <div class="d-flex justify-content-between">
+                <h3>Danh sách món ăn</h3>
+
+                <div class="d-flex align-items-center gap-2">
+                    @if (ViewBag.Invoice.Status == false) {
+                    
+                        <form method="post" asp-action="Complete" asp-route-id="@ViewBag.Invoice.Id">
+                            <button type="submit" class="btn btn-primary">Xác nhận thanh toán</button>
+                        </form>
+                    }
+                    <a href="/cashier/Invoice/BillPaid" class="btn btn-secondary">Trở về</a>
+                </div>
+
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tên món ăn</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var orderDetail in ViewBag.OrderDetail)
+                    {
+                        <tr style="height: 40px;">
+                            <td>@orderDetail.Food.Name</td>
+                            <td>@orderDetail.Quantity</td>
+                            @{
+                                var price = orderDetail.Food.Price * orderDetail.Quantity;
+                                <td>@price.ToString("c")</td>
+                            }
+                           
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="totalprice">
+                <p>
+                   
+                    Tổng tiền : @ViewBag.Invoice.Price
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .detail-info {
+        padding: 4px 8px;
+        background-color: #EFEEEE;
+        border-radius: 8px;
+    }
+
+    .totalprice {
+        display: flex;
+        flex-flow: row-reverse;
+    }
+
+        .totalprice p {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 0px;
+        }
+</style>
+

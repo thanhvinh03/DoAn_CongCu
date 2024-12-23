@@ -1,0 +1,109 @@
+﻿@model FoodStore.Models.Table
+
+@{
+    ViewData["Title"] = "Chi tiết bàn";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container py-4">
+    <h1 class="text-center text-primary mb-4">Chi tiết bàn @Model.Id</h1>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <dl class="row mb-4">
+                <dt class="col-sm-3 text-secondary">Trạng thái:</dt>
+                <dd class="col-sm-9">
+                    @if (Model.Status == 1)
+                    {
+                        <span class="badge bg-warning text-dark">Đã có khách</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Trống</span>
+                    }
+                </dd>
+            </dl>
+
+            <dl class="row mb-4">
+                <dt class="col-sm-3 text-secondary">Mã QR:</dt>
+                <dd class="col-sm-9 text-center">
+                    @using System.IO;
+                    @{
+                        var filename = "https://btyrsvimfztwxhhttwbf.supabase.co/storage/v1/object/public/QRTable/" + Model.Id + ".png";
+                    }
+                    <img src="@filename" class="img-fluid border rounded" alt="QR Code Bàn @Model.Id" style="max-width: 300px;">
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <a asp-action="Update" asp-route-id="@Model?.Id" class="btn btn-primary">
+            <i class="bi bi-pencil-square"></i> Chỉnh sửa
+        </a>
+        <form asp-action="ReloadQR" method="post">
+            <input type="hidden" name="idTable" value="@Model?.Id" /> <!-- Thay 123 bằng giá trị idTable động -->
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-printer"></i> Tạo mới mã QR
+            </button>
+        </form>
+        <button onclick="window.print()" class="btn btn-success">
+            <i class="bi bi-printer"></i> In mã QR
+        </button>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Trở về
+        </a>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 700px;
+    }
+
+    .card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .text-secondary {
+        font-weight: 600;
+    }
+
+    .badge {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    img {
+        max-height: 250px;
+    }
+
+    .btn {
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+
+   @@media print {
+    body * {
+        visibility: hidden; /* Ẩn tất cả các nội dung khác */
+    }
+    .container, .container * {
+        visibility: visible; /* Hiển thị phần cần in */
+    }
+    .container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng trang in */
+    }
+    .btn {
+        display: none; /* Ẩn nút */
+    }
+}
+
+</style>

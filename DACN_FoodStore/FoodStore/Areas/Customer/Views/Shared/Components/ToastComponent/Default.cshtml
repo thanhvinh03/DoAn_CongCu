@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header bg-success">
+        <i class='bx bxs-error-circle text-white'></i>
+        <p class="text-white">Thông báo</p>
+    </div>
+    <div class="toast-body fw-bold">
+        Thêm thành công
+    </div>
+</div>
+
+<style>
+    .toast {
+        width: 300px;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    }
+    .toast-header {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .toast-header {
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
+
+<script>
+    const toast = document.querySelector('.toast');
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+</script>

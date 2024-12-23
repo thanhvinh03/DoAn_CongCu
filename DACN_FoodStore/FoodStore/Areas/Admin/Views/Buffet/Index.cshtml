@@ -1,0 +1,55 @@
+﻿@model IEnumerable<FoodStore.Models.Buffet>
+
+@{
+    ViewData["Title"] = "Danh Sách Buffet";
+}
+
+<h1>Danh Sách Buffet</h1>
+<a href="@Url.Action("Create", "Buffet")" class="btn btn-primary">Thêm Buffet</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã Buffet</th>
+            <th>Tên Buffet</th>
+            <th>Hình Ảnh</th>
+            <th>Giá</th>
+            <th>Trạng Thái</th>
+            <th>Danh Sách Món Ăn</th>
+            <th>Thao Tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var buffet in Model)
+        {
+            <tr>
+                <td>@buffet.Id</td>
+                <td>@buffet.Name</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(buffet.Image))
+                    {
+                        <img src="@buffet.Image" alt="@buffet.Name" style="width: 100px; height: auto;" />
+                    }
+                    else
+                    {
+                        <span>Không có hình ảnh</span>
+                    }
+                </td>
+                <td>@buffet.Price</td>
+                <td>@(buffet.Status == 1 ? "Hoạt động" : "Không hoạt động")</td>
+                <td>
+                    <ul>
+                        @foreach (var detail in buffet.BuffetDetails)
+                        {
+                            <li>@detail.Food.Name</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Buffet", new { id = buffet.Id })" class="btn btn-warning">Sửa</a> |
+                    <a href="@Url.Action("Delete", "Buffet", new { id = buffet.Id })" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

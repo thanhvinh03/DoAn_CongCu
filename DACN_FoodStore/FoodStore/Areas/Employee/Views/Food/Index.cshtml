@@ -1,0 +1,96 @@
+﻿@model IEnumerable<FoodStore.Models.Food>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Employee/Views/Shared/_LayoutEmployee.cshtml";
+}
+
+<h1>Quản lý món ăn</h1>
+
+<p>
+    <a asp-action="Add" class="btn btn-info">Thêm món ăn mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tên loại thực phẩm
+            </th>
+            <th>
+                Tên món ăn
+            </th>
+            <th>
+               Hình ảnh
+            </th>
+           @*  <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th> *@
+            <th>
+                Giá
+            </th>
+            <th>
+                Tình trạng
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="food-item">
+                <td width="5%">
+                    @Html.DisplayFor(modelItem => item.FoodCategorys.Name)
+                </td>
+                <td width="5%">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td width="15%">
+                    <div class="img--wrapper">
+                        <img src="@item.Image" class="food-img" />
+                    </div>
+
+                </td>
+                    
+
+                @* <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td> *@
+                <td width="10%">
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td width="5%">
+                    @if (item.Status == 1)
+                    {
+                        <text>Hết</text>
+                    }
+                    else
+                    {
+                        <text>Còn</text>
+                    }
+                </td>
+
+                <td width="15%">
+                    <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i></a> |
+                    <a asp-action="Display" asp-route-id="@item.Id" class="btn btn-sm btn-success"><i class="fa-solid fa-circle-info"></i></a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .food-item {
+        max-height: 80px;
+    }
+    .img--wrapper {
+        width: 150px;
+        min-height: 150px;
+        max-height: auto;
+        padding: 3px;
+    }
+    .food-img {
+        max-width: 100%;
+    height: auto;
+    }
+</style>

@@ -1,0 +1,28 @@
+﻿@model FoodStore.Models.FoodCategory
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<h1>Thêm sản phẩm</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form href="/admin/foodcategory/add" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Tên</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-4 d-flex align-items-center gap-2">
+                <button type="submit" class="btn btn-primary" /> Thêm </button>
+                <a asp-action="Index" class="btn btn-info">Trở về</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

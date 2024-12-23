@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "_LayoutEmployee";
+}
+
+<div style="text-align: center; margin-top: 50px;">
+    <h1 style="font-size: 2.5em;">
+        <i class="fas fa-store-alt" style="color: #2c3e50;"></i> Tổng doanh thu của quán
+    </h1>
+    <h2 style="font-size: 2em; color: #27ae60; margin-top: 20px;">
+        <i class="fas fa-money-bill-wave" style="color: #27ae60;"></i> Tổng tiền: <strong>@ViewBag.totalRevenue VND</strong>
+    </h2>
+    <div style="display: flex; justify-content: center; gap: 40px; margin-top: 20px;">
+        <div style="font-size: 1.5em;">
+            <i class="fas fa-table" style="color: #2980b9;"></i> Số bàn: <strong>@ViewBag.tableCount</strong>
+        </div>
+        <div style="font-size: 1.5em;">
+            <i class="fas fa-hamburger" style="color: #c0392b;"></i> Số món ăn: <strong>@ViewBag.foodCount</strong>
+        </div>
+        <div style="font-size: 1.5em;">
+            <i class="fas fa-th-list" style="color: #8e44ad;"></i> Số loại món ăn: <strong>@ViewBag.categoryCount</strong>
+        </div>
+    </div>
+</div>

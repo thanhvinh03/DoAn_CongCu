@@ -1,0 +1,147 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<IGrouping<FoodCategory, Food>>
+
+@{
+    ViewData["Title"] = "MenuDetail";
+}
+<div class="container py-4 vh-100">
+    <h2 class="text-center bg-gradient-custom text-white px-2 py-1">@ViewBag.StoreName</h2>
+    <div class="h-100">
+        <div class="customer-order py-3">
+            <div class="order-header d-flex justify-content-between">
+                <a href="/customer/order/ViewCart/@ViewBag.idTable" class="btn btn-primary text-white d-flex align-items-center gap-2" aria-current="page">
+                    Xem giỏ hàng
+                </a>
+                <div>
+                    <a href="#" class="btn btn-danger">Gọi nhân viên</a>
+                </div>
+            </div>
+        </div>
+        <h1>Menu</h1>
+
+        <div class="d-flex align-items-center justify-content-center">
+            @if (Model != null && Model.Any())
+            {
+                <div class="list-cateogry">
+                    @foreach (var group in Model)
+                    {
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-@group.Key.Id" type="button">
+                            @group.Key.Name
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="Modal-@group.Key.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">@group.Key.Name</h5>
+                                        <button type="button" class="btn-close h-100" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="list--food">
+                                            @foreach (var item in group)
+                                            {
+                                                
+                                                    <div class="food-item">
+                                                        <p>@item.Name</p>
+                                                        <p>@item.Price</p>
+                                                        <div class="img--wrapper">
+                                                            <img src="@item.Image" class="food-img" />
+                                                        </div>
+                                                        @if (item.Status == 0)
+                                                        {
+                                                            <form action="/Customer/ShoppingCart/AddToCart" method="post" class="add-to-cart-form">
+                                                                <input type="hidden" name="idTable" value="@ViewBag.idTable" />
+                                                                <input type="hidden" name="foodId" value="@item.Id" />
+                                                                <input type="hidden" name="quantity" value="1" />
+                                                                <button type="submit" class="btn-success btn-sm btn-add"><i class="fa-solid fa-cart-arrow-down"></i></button>
+                                                            </form>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge badge-pill badge-danger py-1">Hết món</span>
+                                                        }
+                                                    </div>
+                                                
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+
+            }
+        </div>
+    </div>
+</div>
+<style>
+    * {
+        font-size: 10px;
+    }
+
+    .btn {
+        font-size: 12px;
+        min-width: 90px;
+        font-weight: bold;
+    }
+
+    .btn-add {
+        min-width: 60px !important;
+        
+        
+    }
+
+    .list-cateogry {
+        display: grid;
+        align-items: center;
+        grid-template-columns: auto auto auto;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .modal-header {
+        align-items: center !important;
+    }
+
+    .food-item {
+        display: grid;
+        align-items: center;
+        grid-template-columns: 25% 20% 25% 25%;
+    }
+
+        .food-item p {
+            margin-bottom: 0px;
+            text-align: center;
+            font-weight: 450;
+        }
+
+        .food-item form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    .img--wrapper {
+        width: 80px;
+        min-height: 80px;
+        max-height: auto;
+        padding: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .food-img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>

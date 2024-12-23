@@ -1,0 +1,63 @@
+﻿@model FoodStore.Models.Ingredients
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Chỉnh sửa nguyên liệu @Model.Name</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Tên nguyên liệu</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">Hình ảnh</label>
+                <input type="file" asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Unit" class="control-label">Đơn vị tính</label>
+                <input asp-for="Unit" class="form-control" />
+                <span asp-validation-for="Unit" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label">Số lượng</label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImportDate" class="control-label">Ngày nhập hàng</label>
+                <input asp-for="ImportDate" type="date" class="form-control" />
+                <span asp-validation-for="ImportDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ExpiryDate" class="control-label">Ngày hết hạn</label>
+                <input asp-for="ExpiryDate" type="date" class="form-control" />
+                <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" style="margin-top: 10px;" /> |
+                <a asp-action="Index" class="btn btn-info" style="margin-top: 10px;">Trở về</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "_LayoutKitchen";
+}
+
+<div class="container text-center" style="margin-top: 50px;">
+    <h1 class="display-4" style="font-size: 2.5em;">
+        <i class="fas fa-store-alt" style="color: #2c3e50;"></i> TỔNG QUAN
+    </h1>
+    <div class="row justify-content-center mt-4">
+        <!-- Số bàn -->
+        <div class="col-md-4">
+            <div class="card shadow-sm" style="border: none;">
+                <div class="card-body text-center">
+                    <i class="fas fa-table fa-2x" style="color: #2980b9;"></i>
+                    <p class="mt-2 mb-1" style="font-size: 1.2em;">Số bàn</p>
+                    <h3 class="font-weight-bold">@ViewBag.tableCount</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Số món ăn -->
+        <div class="col-md-4">
+            <div class="card shadow-sm" style="border: none;">
+                <div class="card-body text-center">
+                    <i class="fas fa-hamburger fa-2x" style="color: #c0392b;"></i>
+                    <p class="mt-2 mb-1" style="font-size: 1.2em;">Số món ăn</p>
+                    <h3 class="font-weight-bold">@ViewBag.foodCount</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Số loại món ăn -->
+        <div class="col-md-4">
+            <div class="card shadow-sm" style="border: none;">
+                <div class="card-body text-center">
+                    <i class="fas fa-th-list fa-2x" style="color: #8e44ad;"></i>
+                    <p class="mt-2 mb-1" style="font-size: 1.2em;">Số loại món ăn</p>
+                    <h3 class="font-weight-bold">@ViewBag.categoryCount</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hàng thứ 2 -->
+    <div class="row justify-content-center mt-4">
+        <!-- Món chưa hoàn thành -->
+        <div class="col-md-4">
+            <div class="card shadow-sm" style="border: none;">
+                <div class="card-body text-center">
+                    <i class="fas fa-clock fa-2x" style="color: red;"></i>
+                    <p class="mt-2 mb-1" style="font-size: 1.2em;">Món không đủ nguyên liệu</p>
+                    <h3 class="font-weight-bold">@ViewBag.notReadyCount</h3>
+                </div>
+            </div>
+        </div>
+        <!-- Món chưa hoàn thành -->
+        <div class="col-md-4">
+            <div class="card shadow-sm" style="border: none;">
+                <div class="card-body text-center">
+                    <i class="fas fa-clock fa-2x" style="color: #f39c12;"></i>
+                    <p class="mt-2 mb-1" style="font-size: 1.2em;">Món chưa hoàn thành</p>
+                    <h3 class="font-weight-bold">@ViewBag.unfinishedCount</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Món chờ bàn giao -->
+        <div class="col-md-4">
+            <div class="card shadow-sm" style="border: none;">
+                <div class="card-body text-center">
+                    <i class="fas fa-hourglass-half fa-2x" style="color: #27ae60;"></i>
+                    <p class="mt-2 mb-1" style="font-size: 1.2em;">Món chờ bàn giao</p>
+                    <h3 class="font-weight-bold">@ViewBag.waitingForDeliveryCount</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

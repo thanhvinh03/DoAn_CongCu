@@ -1,0 +1,43 @@
+﻿@model IEnumerable<FoodStore.Models.Payment>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Employee/Views/Shared/_LayoutEmployee.cshtml";
+}
+
+<h1>Quản lý hình thức thanh toán</h1>
+
+
+<p>
+    <a asp-action="Add" class="btn btn-info">Thêm hình thức thanh toán</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Mã hình thức
+            </th>
+            <th>
+                Tên
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                    <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a> |
+                    <a asp-action="Display" asp-route-id="@item.Id" class="btn btn-success"><i class="fa-solid fa-circle-info"></i></a> |
+                   
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

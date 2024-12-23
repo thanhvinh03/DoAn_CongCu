@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Thêm bất kỳ style tùy chỉnh nào bạn muốn */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://png.pngtree.com/background/20210710/original/pngtree-light-color-simple-gourmet-dry-pot-beef-belly-e-commerce-food-picture-image_1046285.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 100px;
+            background-color: rgba(255, 255, 255, 0.7); /* Màu nền với độ trong suốt */
+            padding: 20px;
+            border-radius: 10px; /* Bo tròn các góc */
+        }
+
+        .btn-login {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Food Store</h1>
+        <a href="/Identity/Account/Login" class="btn btn-primary btn-login">Đăng nhập</a>
+    </div>
+</body>
+</html>

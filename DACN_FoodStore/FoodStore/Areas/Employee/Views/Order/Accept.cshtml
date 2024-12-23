@@ -1,0 +1,75 @@
+﻿@model FoodStore.Models.Order
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+<div class="container mt-4">
+
+    <h3 class="text-center">Thông tin chi tiết đơn đặt hàng</h3>
+    <div class="order-detail mt-2">
+        <div class="detail-info">
+            <div class="row">
+                <div class="col-3 fw-bold">
+                    Mã đơn đặt hàng: @Model.Id
+                </div>
+                <div class="col-3 fw-bold">
+                    Số bàn: @Model.TableId
+                </div>
+                <div class="col-3 fw-bold">
+                    Ngày tạo: @Model.Created.ToString("HH:mm:ss dd-MM-yyyy")
+                </div>
+                <div class="col-3 fw-bold d-flex align-items-center gap-2">
+                    Trạng thái: @{
+                        if (@Model.Status)
+                        {
+                            <span class="badge bg-success">Đã tiếp nhận</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Chưa tiếp nhận</span>
+
+                        }
+                    }
+                </div>
+            </div>
+
+        </div>
+        <div class="detail-item mt-4">
+            <div class="d-flex justify-content-between">
+                <h3>Danh sách món ăn</h3>
+
+                <div class="d-flex align-items-center gap-2">
+                    <a href="/employee/Order" class="btn btn-primary">Trở về</a>
+                </div>
+
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tên món ăn</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var orderDetail in ViewBag.orderDetail)
+                    {
+                        <tr style="height: 40px;">
+                            <td>@orderDetail.FoodItem.Name</td>
+                            <td>@orderDetail.Quantity</td>
+                            <td>@orderDetail.Price</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .detail-info {
+        padding: 4px 8px;
+        background-color: #EFEEEE;
+        border-radius: 8px;
+    }
+</style>
