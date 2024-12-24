@@ -53,7 +53,7 @@ namespace FoodStore.Areas.Employee.Controllers
             ViewBag.FoodCategories = new SelectList(foodcategories, "Id", "Name");
             return View(food);
         }
-
+        //lưu image
         
         private async Task<string> SaveImage(IFormFile image)
         {
@@ -65,7 +65,17 @@ namespace FoodStore.Areas.Employee.Controllers
             }
             return "/images/" + image.FileName;
         }
-        
+        //private async Task<string> SaveImage(IFormFile image)
+       // {
+           // var savePath = Path.Combine("wwwroot/images", image.FileName); //
+
+           // using (var fileStream = new FileStream(savePath, FileMode.Create))
+          //  {
+           //     await image.CopyToAsync(fileStream);
+           // }
+           // return "/images/" + image.FileName;
+      //  }
+
         public async Task<IActionResult> Display(int id)
         {
             var food = await _foodRepository.GetByIdAsync(id);
