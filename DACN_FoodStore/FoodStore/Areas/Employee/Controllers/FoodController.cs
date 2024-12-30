@@ -100,7 +100,7 @@ namespace FoodStore.Areas.Employee.Controllers
             return View(food);
         }
 
-        // Xử lý cập nhật sản phẩm
+        // Xử lý cập nhật của sản phẩm
         [HttpPost]
         public async Task<IActionResult> Update(int id, Food food, IFormFile imageUrl)
 
