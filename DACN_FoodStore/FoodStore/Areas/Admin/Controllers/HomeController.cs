@@ -28,12 +28,12 @@ namespace FoodStore.Areas.Admin.Controllers
             var tables = await _tableRepository.GetAllAsync();
             var foods = await _foodRepository.GetAllAsync();
             var categories = await _categoryRepository.GetAllAsync();
-
+            
             var totalRevenue = invoices.Sum(invoice => invoice.Price);
             var tableCount = tables.Count();
             var foodCount = foods.Count();
             var categoryCount = categories.Count();
-
+            //Cho dữ liệu vào viewbag để hiển thị lên UI
             ViewBag.invoices = invoices;
             ViewBag.totalRevenue = totalRevenue;
             ViewBag.tableCount = tableCount;
