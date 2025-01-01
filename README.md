@@ -56,6 +56,8 @@
 📧 Email: nquynhh21@gmail.com@example.com
 🔗 GitHub: https://github.com/DoThiNhuQuynh
 
+Edit for test Jira
+
   Thành viên 3: Hoàng Thị Thanh Vinh
 🌟 Vai trò: Phát triển backend, tích hợp hệ thống
 📧 Email: thanhvinhhoang246@gmail.com
