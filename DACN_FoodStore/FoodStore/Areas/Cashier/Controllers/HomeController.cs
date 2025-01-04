@@ -28,7 +28,7 @@ namespace FoodStore.Areas.Cashier.Controllers
             var tables = await _tableRepository.GetAllAsync();
             var foods = await _foodRepository.GetAllAsync();
             var categories = await _categoryRepository.GetAllAsync();
-
+            //modified homeController
             var totalRevenue = invoices.Sum(invoice => invoice.Price);
             var tableCount = tables.Count();
             var foodCount = foods.Count();
