@@ -13,34 +13,34 @@ namespace FoodStore.Areas.Cashier.Controllers
         private readonly ITableRepository _tableRepository;
         private readonly IFoodRepository _foodRepository;
         private readonly IFoodCategoryRepository _categoryRepository;
-        
-        public HomeController(IInvoiceRepository invoiceRepository, ITableRepository tableRepository, IFoodRepository foodRepository, IFoodCategoryRepository categoryRepository)
+
+        public HomeController(IInvoiceRepository invoiceRepo, ITableRepository tableRepo, IFoodRepository foodRepo, IFoodCategoryRepository categoryRepo)
         {
-            _invoiceRepository = invoiceRepository;
-            _tableRepository = tableRepository;
-            _foodRepository = foodRepository;
-            _categoryRepository = categoryRepository;
+            _invoiceRepository = invoiceRepo;
+            _tableRepository = tableRepo;
+            _foodRepository = foodRepo;
+            _categoryRepository = categoryRepo;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            // Code khác để tạo xung đột khi merge
-            var allInvoices = await _invoiceRepository.GetAllAsync();
-            var allTables = await _tableRepository.GetAllAsync();
-            var allFoods = await _foodRepository.GetAllAsync();
-            var allCategories = await _categoryRepository.GetAllAsync();
+            // Khác biệt về thứ tự xử lý và cách lấy dữ liệu
+            var tables = await _tableRepository.GetAllAsync();
+            var categories = await _categoryRepository.GetAllAsync();
+            var foods = await _foodRepository.GetAllAsync();
+            var invoices = await _invoiceRepository.GetAllAsync();
 
-            var totalSales = allInvoices.Sum(i => i.Price);
-            var numberOfTables = allTables.Count();
-            var numberOfFoods = allFoods.Count();
-            var numberOfCategories = allCategories.Count();
+            var tableCount = tables.Count();
+            var categoryCount = categories.Count();
+            var foodCount = foods.Count();
+            var totalRevenue = invoices.Sum(i => i.Price);
 
-            ViewBag.allInvoices = allInvoices;
-            ViewBag.totalSales = totalSales;
-            ViewBag.numberOfTables = numberOfTables;
-            ViewBag.numberOfFoods = numberOfFoods;
-            ViewBag.numberOfCategories = numberOfCategories;
+            ViewBag.tableCount = tableCount;
+            ViewBag.categoryCount = categoryCount;
+            ViewBag.foodCount = foodCount;
+            ViewBag.totalRevenue = totalRevenue;
+            ViewBag.invoices = invoices;
 
             return View();
         }
