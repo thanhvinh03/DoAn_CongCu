@@ -24,6 +24,7 @@ namespace FoodStore.Areas.Cashier.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            //Code
             var invoices = await _invoiceRepository.GetAllAsync();
             var tables = await _tableRepository.GetAllAsync();
             var foods = await _foodRepository.GetAllAsync();
