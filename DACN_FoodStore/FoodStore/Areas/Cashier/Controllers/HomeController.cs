@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FoodStore.Areas.Cashier.Controllers
 {
-
     [Area("Cashier")]
     [Authorize(Roles = SD.Role_Cashier)]
     public class HomeController : Controller
@@ -14,6 +13,7 @@ namespace FoodStore.Areas.Cashier.Controllers
         private readonly ITableRepository _tableRepository;
         private readonly IFoodRepository _foodRepository;
         private readonly IFoodCategoryRepository _categoryRepository;
+        
         public HomeController(IInvoiceRepository invoiceRepository, ITableRepository tableRepository, IFoodRepository foodRepository, IFoodCategoryRepository categoryRepository)
         {
             _invoiceRepository = invoiceRepository;
@@ -21,24 +21,26 @@ namespace FoodStore.Areas.Cashier.Controllers
             _foodRepository = foodRepository;
             _categoryRepository = categoryRepository;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var invoices = await _invoiceRepository.GetAllAsync();
-            var tables = await _tableRepository.GetAllAsync();
-            var foods = await _foodRepository.GetAllAsync();
-            var categories = await _categoryRepository.GetAllAsync();
-            //modified homeController
-            var totalRevenue = invoices.Sum(invoice => invoice.Price);
-            var tableCount = tables.Count();
-            var foodCount = foods.Count();
-            var categoryCount = categories.Count();
-            //viewbag cho giao dien
-            ViewBag.invoices = invoices;
-            ViewBag.totalRevenue = totalRevenue;
-            ViewBag.tableCount = tableCount;
-            ViewBag.foodCount = foodCount;
-            ViewBag.categoryCount = categoryCount;
+            // Code khác để tạo xung đột khi merge
+            var allInvoices = await _invoiceRepository.GetAllAsync();
+            var allTables = await _tableRepository.GetAllAsync();
+            var allFoods = await _foodRepository.GetAllAsync();
+            var allCategories = await _categoryRepository.GetAllAsync();
+
+            var totalSales = allInvoices.Sum(i => i.Price);
+            var numberOfTables = allTables.Count();
+            var numberOfFoods = allFoods.Count();
+            var numberOfCategories = allCategories.Count();
+
+            ViewBag.allInvoices = allInvoices;
+            ViewBag.totalSales = totalSales;
+            ViewBag.numberOfTables = numberOfTables;
+            ViewBag.numberOfFoods = numberOfFoods;
+            ViewBag.numberOfCategories = numberOfCategories;
 
             return View();
         }
